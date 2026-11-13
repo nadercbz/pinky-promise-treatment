@@ -1,0 +1,1081 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pinky Promise Treatment</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: Filmklappe trifft Straßenplakat. Ein roter Faden läuft links durch die ganze Seite, jede Sektion ist eine Szene mit Klappen Label. */
+:root{
+  --bg:#0a0f14; --bg2:#111a22; --bg3:#17222c;
+  --ink:#e6ebee; --muted:#8a98a5; --line:rgba(230,235,238,.13);
+  --thread:#e3262f; --teal:#3db6aa; --sodium:#f0a33f;
+  --shade:rgba(10,15,20,.78);
+  --navh:56px;
+  --display:"Big Shoulders Display","Oswald","Arial Narrow",Impact,sans-serif;
+  --body:"Manrope","Inter",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#eef2f4; --bg2:#ffffff; --bg3:#e2e8ec;
+    --ink:#0c1218; --muted:#55636f; --line:rgba(12,18,24,.14);
+    --thread:#cc1f29; --teal:#1d8479; --sodium:#a9630c;
+    --shade:rgba(238,242,244,.84);
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#eef2f4; --bg2:#ffffff; --bg3:#e2e8ec;
+  --ink:#0c1218; --muted:#55636f; --line:rgba(12,18,24,.14);
+  --thread:#cc1f29; --teal:#1d8479; --sodium:#a9630c;
+  --shade:rgba(238,242,244,.84);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--thread);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{position:relative}
+.sec{position:relative;z-index:1;padding-block:clamp(64px,10vw,128px)}
+.sec + .sec{border-top:1px solid var(--line)}
+.slate{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.slate b{color:var(--thread);font-weight:600}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(40px,7vw,92px);line-height:.92;letter-spacing:.005em;text-transform:uppercase;margin:0 0 28px;text-wrap:balance}
+h3{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.2vw,38px);line-height:1;text-transform:uppercase;margin:0 0 12px;letter-spacing:.01em}
+p{margin:0 0 1em;max-width:65ch}
+.lead{font-size:clamp(18px,2vw,22px);line-height:1.55;max-width:60ch}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.red{color:var(--thread)}
+
+/* roter Faden */
+#thread{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:0;overflow:visible}
+#thread path{fill:none;stroke:var(--thread);stroke-width:2.2;stroke-linecap:round}
+#thread circle{fill:var(--thread)}
+
+/* Hero */
+.hero{position:relative;z-index:1;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-bg{position:absolute;inset:-8% 0 0 34%;background:url("assets/treppe.jpg") 50% 30%/cover no-repeat;will-change:transform}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,var(--shade) 18%,rgba(0,0,0,0) 46%),linear-gradient(0deg,var(--bg) 0%,rgba(0,0,0,0) 34%)}
+@media (max-width:760px){.hero-bg{left:0;background-position:62% 30%}.hero-bg::after{background:linear-gradient(90deg,var(--shade) 0%,var(--shade) 55%,rgba(0,0,0,.15) 100%),linear-gradient(0deg,var(--bg) 0%,rgba(0,0,0,0) 40%)}}
+.hero .wrap{position:relative;padding-block:clamp(72px,12vw,150px) clamp(48px,7vw,80px)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.title{font-family:var(--display);font-weight:900;font-size:clamp(68px,15vw,210px);line-height:.82;letter-spacing:-.005em;text-transform:uppercase;margin:18px 0 6px}
+.title span{display:block}
+.title .t2{color:var(--thread)}
+.artist{font-family:var(--display);font-weight:600;font-size:clamp(24px,3vw,36px);text-transform:uppercase;letter-spacing:.06em;margin-bottom:34px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;max-width:760px;border:1px solid var(--line);background:var(--shade);backdrop-filter:blur(6px)}
+.facts div{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.facts div:nth-child(3n){border-right:0}
+.facts div:nth-last-child(-n+3){border-bottom:0}
+.facts dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:4px 0 0;font-weight:600;font-size:15px}
+@media (max-width:640px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div{border-right:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important}.facts div:nth-child(2n){border-right:0!important}.facts div:nth-last-child(-n+2){border-bottom:0!important}}
+
+/* Director */
+.dir{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,72px);align-items:start}
+.quote{font-family:var(--display);font-weight:800;font-size:clamp(34px,4.6vw,62px);line-height:.98;text-transform:uppercase;margin:0;position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--navh) + 32px)}
+.quote em{font-style:normal;color:var(--thread)}
+.note p{font-size:clamp(17px,1.7vw,19px);line-height:1.7}
+.note .w{color:var(--muted);transition:color .25s}
+.note .w.on{color:var(--ink)}
+.sign{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:24px}
+.sign b{color:var(--ink);font-weight:600}
+@media (max-width:860px){.dir{grid-template-columns:1fr}.quote{position:static}}
+
+/* Pfeiler */
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.grid3 > div{background:var(--bg);padding:26px 24px 28px;min-width:0}
+.grid3 .k{font-family:var(--mono);font-size:12px;color:var(--thread);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+@media (max-width:820px){.grid3{grid-template-columns:1fr}}
+.logline{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.4vw,44px);line-height:1.08;text-transform:uppercase;max-width:22ch;margin:0 0 48px;text-wrap:balance}
+.swap{margin-top:48px;overflow-x:auto}
+.swap table{width:100%;border-collapse:collapse;min-width:560px}
+.swap th,.swap td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.swap th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:400}
+.swap td:first-child{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--thread);text-decoration-thickness:2px}
+.swap td:last-child{font-weight:600}
+
+/* Motiv */
+.motif{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.duo figure:nth-child(2){margin-top:56px}
+figure{margin:0}
+figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+figcaption{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:.04em}
+.steps{list-style:none;margin:24px 0 0;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.steps li:last-child{border-bottom:1px solid var(--line)}
+.steps .t{font-family:var(--mono);color:var(--thread);font-size:13px;padding-top:3px}
+@media (max-width:860px){.motif{grid-template-columns:1fr}}
+
+/* Storyline */
+.story{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,5vw,64px)}
+.clockbox{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--navh) + 24px);align-self:start;border:1px solid var(--line);background:var(--bg2);padding:22px}
+.clockbox .lab{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.clockbox .lab i{font-style:normal;color:var(--thread)}
+.clock{font-family:var(--mono);font-weight:600;font-size:clamp(48px,6vw,76px);color:var(--thread);letter-spacing:.02em;line-height:1;margin:14px 0 10px;font-variant-numeric:tabular-nums;text-shadow:0 0 18px color-mix(in srgb,var(--thread) 45%,transparent)}
+.clockbox .act{font-family:var(--display);font-weight:800;font-size:24px;text-transform:uppercase}
+.bar{height:3px;background:var(--line);margin-top:16px;position:relative}
+.bar span{position:absolute;inset:0 auto 0 0;width:0;background:var(--thread)}
+.acts{display:grid;gap:clamp(48px,7vw,96px)}
+.actc{display:grid;gap:18px}
+.actc .meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.actc .meta b{color:var(--thread);font-weight:600}
+.actc .img{overflow:hidden;border-radius:2px;aspect-ratio:16/9;background:var(--bg3)}
+.actc .img img{width:100%;height:100%;object-fit:cover;transform-origin:center}
+.lyric{font-family:var(--display);font-weight:600;font-size:clamp(22px,2.4vw,30px);line-height:1.1;text-transform:uppercase;border-left:3px solid var(--thread);padding-left:14px;margin:4px 0 0}
+@media (max-width:860px){.story{grid-template-columns:1fr}.clockbox{top:calc(env(safe-area-inset-top,0px) + var(--navh) + 6px);z-index:3;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:4px 16px;padding:12px 14px}.clockbox .lab{grid-column:1/-1}.clock{font-size:40px;margin:0}.bar{grid-column:1/-1;margin-top:6px}}
+
+/* Songkarte */
+.map{border:1px solid var(--line);background:var(--bg2);padding:clamp(16px,3vw,28px);overflow-x:auto}
+.map svg{display:block;width:100%;min-width:680px;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:16px;font-size:14px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:8px;vertical-align:-1px;background:var(--c)}
+
+/* Look */
+.sw{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:12px 0 48px}
+.sw div{border:1px solid var(--line);min-width:0}
+.sw i{display:block;height:96px}
+.sw b{display:block;padding:10px 12px 2px;font-weight:600;font-size:14px}
+.sw small{display:block;padding:0 12px 12px;color:var(--muted);font-size:13px;line-height:1.4}
+@media (max-width:820px){.sw{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 36px}
+.notes h4{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--thread);margin:0 0 8px;font-weight:600}
+.notes p{font-size:15px;color:var(--ink);margin:0}
+@media (max-width:820px){.notes{grid-template-columns:1fr}}
+.moodhead{display:flex;align-items:baseline;gap:16px;margin-top:72px;border-top:1px solid var(--line);padding-top:28px}
+.moodhead h3{margin:0}
+.mood{columns:4 220px;column-gap:12px;margin-top:20px}
+.mood figure{break-inside:avoid;margin:0 0 16px}
+.mood img{height:auto;width:100%;border-radius:2px;background:var(--bg3)}
+
+/* Previs Band */
+.strip-sec{padding-block:clamp(48px,7vw,88px) 0;position:relative;z-index:1;border-top:1px solid var(--line);background:var(--bg)}
+.strip-outer{overflow:hidden}
+.strip{display:flex;gap:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:clamp(64px,10vw,128px);will-change:transform}
+.strip figure{flex:0 0 min(68vw,640px)}
+.strip figure img{aspect-ratio:16/9}
+@media (max-width:899px){.strip-outer{overflow-x:auto;scroll-snap-type:x mandatory}.strip figure{scroll-snap-align:start;flex-basis:84vw}}
+
+/* Shot Script */
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0 18px}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:transparent;color:var(--ink);padding:7px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--thread);border-color:var(--thread);color:#fff}
+select{font:inherit;font-size:13px;background:var(--bg2);color:var(--ink);border:1px solid var(--line);padding:7px 10px;border-radius:6px}
+.stats{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em;margin-left:auto}
+.tbl{overflow-x:auto;border:1px solid var(--line)}
+.tbl table{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{position:sticky;top:0;background:var(--bg2);text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:400;padding:12px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .nr{font-family:var(--mono);color:var(--thread);font-weight:600;white-space:nowrap}
+.tbl .tc{font-family:var(--mono);white-space:nowrap;color:var(--muted)}
+.tbl .ly{font-style:italic;color:var(--muted);min-width:150px}
+.tbl .im img{width:112px;aspect-ratio:16/9;object-fit:cover;border-radius:2px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:3px;white-space:nowrap}
+.tag.Performance{color:var(--thread)}
+.tag.Story{color:var(--ink)}
+.tag.Insert{color:var(--sodium)}
+.tag.VHS{color:var(--teal)}
+.tag.Post{color:var(--muted)}
+.tbl tr.part td{background:var(--bg3);font-family:var(--display);font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:.03em;padding:10px 12px}
+.tbl tr.part td span{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--muted);margin-left:10px;letter-spacing:.06em}
+@media (max-width:760px){
+  .tbl{border:0;overflow:visible}
+  .tbl table,.tbl tbody{display:block}
+  .tbl thead{display:none}
+  .tbl tr{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .tbl tr.part{display:block;border:0;padding:16px 0 4px}
+  .tbl tr.part td{display:block;background:transparent;padding:0}
+  .tbl td{border:0;padding:0;min-width:0}
+  .tbl .tc{grid-column:3}
+  .tbl .ly,.tbl .bi,.tbl .ei,.tbl .oi,.tbl .ty,.tbl .im{grid-column:1/-1}
+  .tbl .im img{width:100%}
+  .tbl .im:empty{display:none}
+}
+
+/* Orte, Cast, Plan */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{border:1px solid var(--line);background:var(--bg2);padding:20px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.card .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card h3{font-size:26px;margin:0}
+.card p{font-size:14px;margin:0}
+.card .need{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin-top:auto}
+.card .shots{font-family:var(--mono);font-size:12px;color:var(--thread)}
+.cast{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,56px);align-items:start}
+.cast figure img{aspect-ratio:4/5}
+.people{display:grid;gap:0}
+.people > div{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.people > div:last-child{border-bottom:1px solid var(--line)}
+.people b{font-family:var(--display);font-weight:800;font-size:22px;text-transform:uppercase;line-height:1.05}
+.people p{margin:0;font-size:15px}
+@media (max-width:860px){.cast{grid-template-columns:1fr}.people > div{grid-template-columns:1fr;gap:4px}}
+.plan{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:6px}
+.plan li{position:relative;padding:0 0 26px 26px}
+.plan li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--thread)}
+.plan li.hot::before{background:var(--thread)}
+.plan .time{font-family:var(--mono);font-weight:600;color:var(--thread);font-size:14px}
+.plan .what{font-weight:700;font-size:17px;margin:2px 0}
+.plan .det{color:var(--muted);font-size:14px;max-width:70ch}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px)}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.check{list-style:none;margin:0;padding:0}
+.check li{border-top:1px solid var(--line)}
+.check li:last-child{border-bottom:1px solid var(--line)}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:12px 2px;cursor:pointer;font-size:15px}
+.check input{accent-color:var(--thread);width:18px;height:18px;margin-top:3px;flex:0 0 auto}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.deliv{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:40px}
+.deliv div{border:1px solid var(--line);padding:18px;min-width:0}
+.deliv b{font-family:var(--display);font-weight:800;font-size:22px;text-transform:uppercase;display:block;line-height:1.05;margin-bottom:6px}
+.deliv span{font-size:14px;color:var(--muted)}
+
+/* Schluss */
+.end{text-align:left}
+.end .big{font-family:var(--display);font-weight:900;font-size:clamp(48px,10vw,150px);line-height:.88;text-transform:uppercase;margin:0 0 36px;text-wrap:balance}
+.end .big em{font-style:normal;color:var(--thread)}
+.credits{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px;font-size:15px}
+.credits dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.credits dd{margin:4px 0 0;font-weight:600}
+
+/* Seitenindex */
+.index{position:fixed;right:max(18px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:5;display:none;flex-direction:column;gap:10px}
+.index a{display:flex;align-items:center;justify-content:flex-end;gap:10px;text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.index a span{opacity:0;transition:opacity .2s}
+.index a:hover span,.index a.on span{opacity:1}
+.index a i{width:8px;height:8px;border-radius:50%;border:1px solid var(--muted);display:block}
+.index a.on i{background:var(--thread);border-color:var(--thread)}
+@media (min-width:1360px){.index{display:flex}}
+/* Menüleiste */
+[hidden]{display:none!important}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:12;background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;gap:16px;height:var(--navh)}
+.brand{font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:.02em;text-decoration:none;text-transform:uppercase;white-space:nowrap}
+.brand span{color:var(--thread)}
+.tlinks{display:flex;align-items:center;gap:6px 20px;margin-left:auto;min-width:0}
+.tlinks a{font-size:14px;font-weight:600;text-decoration:none;color:var(--muted);white-space:nowrap}
+.tlinks a:hover{color:var(--ink)}
+.tlinks a.dtbtn{display:inline-flex;align-items:center;gap:8px;background:var(--thread);color:#fff;padding:8px 14px;border-radius:999px}
+.dtbtn span{font-family:var(--mono);font-size:12px;font-weight:600;background:rgba(0,0,0,.24);padding:2px 7px;border-radius:999px}
+@media (max-width:760px){.tlinks .opt{display:none}}
+@media (max-width:420px){.tlinks .opt2{display:none}.brand{font-size:19px}}
+
+/* Drehtag Ansicht */
+.dt{position:fixed;inset:0;z-index:40;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.dthead{position:sticky;top:0;z-index:2;background:var(--bg2);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.dthead .wrap{padding-block:14px}
+.dtrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.dtrow h2{font-size:clamp(28px,5vw,44px);margin:2px 0 0}
+.dtclose{margin-left:auto}
+.dtbtns{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+.btn{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer;min-height:40px}
+.btn.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.warn{border-color:var(--thread);color:var(--thread)}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:12px 0 10px}
+.prog i{display:block;height:100%;width:0;background:var(--thread);transition:width .3s}
+.dtstat{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.copyfield{width:100%;font:inherit;font-size:13px;margin-top:10px;padding:8px 10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px}
+.dtbody{padding-block:18px 96px}
+.dtnote{font-size:14px;color:var(--muted);margin-bottom:16px}
+.blk{border:1px solid var(--line);background:var(--bg2);margin-bottom:14px}
+.blk.now{border-color:var(--thread);box-shadow:0 0 0 1px var(--thread)}
+.blk.ok .blkhead,.blk.ok .bmeta{opacity:.6}
+.blkhead{display:flex;gap:14px;align-items:baseline;padding:16px 16px 8px}
+.blkhead .time{font-family:var(--mono);font-weight:600;color:var(--thread);font-size:15px;min-width:52px}
+.blkhead h3{font-size:24px;margin:0;min-width:0}
+.blkhead .bp{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap}
+.badge{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:3px;background:var(--thread);color:#fff;margin-left:10px;vertical-align:middle}
+.badge.ok{background:var(--teal)}
+.bmeta{padding:0 16px 14px 82px;font-size:14px;color:var(--muted);display:grid;gap:3px}
+.bmeta b{color:var(--ink);font-weight:600}
+.shotl{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.shotl li + li{border-top:1px solid var(--line)}
+.shotl li{transition:background .3s}
+.shotl li.flash{background:color-mix(in srgb,var(--thread) 18%,transparent)}
+.shotl label{display:grid;grid-template-columns:26px 40px minmax(0,1fr) auto;gap:12px;align-items:start;padding:14px 16px;cursor:pointer}
+.shotl input{width:24px;height:24px;accent-color:var(--thread);margin:1px 0 0}
+.shotl .n{font-family:var(--mono);font-weight:600;color:var(--thread);font-size:15px;padding-top:2px}
+.shotl b{display:block;font-weight:600;font-size:15px;line-height:1.4}
+.shotl small{display:block;color:var(--muted);font-size:13px;margin-top:4px;line-height:1.45}
+.shotl li.done .n,.shotl li.done .tx,.shotl li.done .tag{opacity:.45}
+.shotl li.done b{text-decoration:line-through;text-decoration-color:var(--thread);text-decoration-thickness:2px}
+.dt.open-only .shotl li.done{display:none}
+.dt.open-only .blk.ok .shotl,.dt.open-only .blk.ok .bmeta{display:none}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:50;white-space:nowrap}
+.tbl tr.done .nr::after{content:" ✓";color:var(--teal)}
+.plancta{margin-top:28px}.plancta .btn{display:inline-flex;align-items:center;text-decoration:none}
+@media (max-width:640px){
+  .bmeta{padding-left:16px}.shotl label{grid-template-columns:24px 34px minmax(0,1fr)}.shotl .tag{grid-column:3;justify-self:start}.blkhead h3{font-size:21px}
+  .dthead .wrap{padding-block:10px}
+  .dtrow:first-child{flex-wrap:nowrap}.dtrow:first-child > div{min-width:0}
+  .dtrow h2{font-size:26px}
+  .dthead .long{display:none}
+  .prog{margin:8px 0 6px}
+  .dtbtns{margin:6px -16px 0;padding:0 16px 2px;width:calc(100% + 32px);flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .dtbtns::-webkit-scrollbar{display:none}
+  .dtbtns .btn,.dtclose{flex:0 0 auto;min-height:36px;padding:6px 12px;font-size:13px}
+}
+@media (prefers-reduced-motion: reduce){.note .w{transition:none}}
+</style>
+
+<svg id="thread" aria-hidden="true"><path id="threadPath" d=""></path><circle id="threadKnot" r="4" cx="0" cy="0"></circle></svg>
+
+<nav class="topbar" aria-label="Menü"><div class="wrap topin">
+  <a class="brand" href="#top" id="brandLink">Pinky <span>Promise</span></a>
+  <div class="tlinks">
+    <a class="opt" href="#director">Treatment</a>
+    <a class="opt" href="#story">Storyline</a>
+    <a class="opt2" href="#shots">Shot Script</a>
+    <a class="opt" href="#plan">Drehplan</a>
+    <a class="dtbtn" href="#drehtag" id="dtBtn">Drehtag <span id="dtCount">0/50</span></a>
+  </div>
+</div></nav>
+
+<nav class="index" aria-label="Kapitel">
+  <a href="#director"><span>Director's Interpretation</span><i></i></a>
+  <a href="#idee"><span>Idee</span><i></i></a>
+  <a href="#faden"><span>Roter Faden</span><i></i></a>
+  <a href="#story"><span>Storyline</span><i></i></a>
+  <a href="#song"><span>Song</span><i></i></a>
+  <a href="#look"><span>Look</span><i></i></a>
+  <a href="#shots"><span>Shot Script</span><i></i></a>
+  <a href="#orte"><span>Drehorte</span><i></i></a>
+  <a href="#cast"><span>Cast</span><i></i></a>
+  <a href="#plan"><span>Drehplan</span><i></i></a>
+  <a href="#liste"><span>Props</span><i></i></a>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="wrap">
+    <div class="eyebrow">Treatment und Shot Script · für das Label · Fassung 1 · 11.11.2026</div>
+    <h1 class="title"><span>Pinky</span><span class="t2">Promise</span></h1>
+    <div class="artist">Aleyna Kuzh</div>
+    <dl class="facts">
+      <div><dt>Regie</dt><dd>Nader Ait-Laouad</dd></div>
+      <div><dt>Produktion</dt><dd>Shuto Crew, Berlin</dd></div>
+      <div><dt>Drehtag</dt><dd>Samstag, 14.11.2026</dd></div>
+      <div><dt>Drehort</dt><dd>Berlin, draußen auf der Straße</dd></div>
+      <div><dt>Song</dt><dd class="mono">2:24 · 140 BPM</dd></div>
+      <div><dt>Format</dt><dd>16:9 plus Hochkant Cuts</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="sec" id="director">
+  <div class="wrap">
+    <div class="slate"><b>Szene 00</b><span>Director's Interpretation</span></div>
+    <div class="dir">
+      <p class="quote">Ein Versprechen ist nur so viel wert wie die Person, <em>die es hält.</em></p>
+      <div class="note" id="note">
+        <p>Pinky Promise ist ein Song über Haltung. Aleyna sagt es selbst: wenn ich sage ja, dann mach ich. Genauso online wie im echten Leben. Alle anderen sind Plastik.</p>
+        <p>Genau das zeigen wir, ohne Kulisse und ohne Fake. Wir drehen auf der Straße, in Berlin, in einer echten Nacht. Mit ihren Leuten und an Orten, die es wirklich gibt: der Späti an der Ecke, das Treppenhaus im Block, die Bushaltestelle im Nieselregen, der Bolzplatz im Kiez.</p>
+        <p>Durch das ganze Video läuft ein roter Faden, wörtlich. Er ist um Aleynas kleinen Finger gebunden und wird zum Versprechen, das wir eine Nacht lang begleiten. Um 00:00 spielt sie ihren unveröffentlichten Song. Alle sagen, sie kommt eh zu spät. Sie kommt nicht zu spät.</p>
+        <p>Die Bilder sind Nacht in Blau und Teal, das einzige starke Rot ist der Faden. Weitwinkel nah am Boden, Fisheye mitten in der Crew, harter Blitz wie bei Partyfotos und echte Camcorder Aufnahmen für die Momente, die sich wie Erinnerung anfühlen.</p>
+        <p>Kein Auto, kein Schnee, keine Effekte, die man kaufen muss. Ein Versprechen, eine Nacht, eine Stadt.</p>
+        <div class="sign"><b>Nader Ait-Laouad</b> · Regie, Shuto Crew</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="idee">
+  <div class="wrap">
+    <div class="slate"><b>Szene 01</b><span>Die Idee</span></div>
+    <p class="logline">Eine Winternacht in Berlin. Aleyna hat versprochen, ihren Unreleased um Punkt Mitternacht zu spielen, und ein roter Faden führt sie durch die Stadt, bis sie ihr Wort hält.</p>
+    <div class="grid3">
+      <div><div class="k">Echt</div><h3>Straße statt Studio</h3><p class="muted">Echte Orte, echte Leute aus Aleynas Umfeld, Licht von Laternen, Spätis und Handys. Wir drehen fast alles draußen und mit kleinem Team.</p></div>
+      <div><div class="k">Motiv</div><h3>Der rote Faden</h3><p class="muted">Ein dünner roter Faden am kleinen Finger. Jeder, der einhakt, gehört dazu. Am Ende spannt er sich in die ganze Menge.</p></div>
+      <div><div class="k">Spannung</div><h3>Countdown bis 00:00</h3><p class="muted">"Du kommst eh zu spät" ist der Gegner. Uhren und Handys zählen die Nacht runter, im Drop ist es Mitternacht.</p></div>
+    </div>
+    <div class="swap">
+      <table>
+        <thead><tr><th>In der KI Previs</th><th>Beim echten Dreh</th></tr></thead>
+        <tbody>
+          <tr><td>Schwarzer BMW X3 als Hauptauto</td><td>Zu Fuß mit der Crew, eine große Box auf der Schulter</td></tr>
+          <tr><td>Schnee in jeder Einstellung</td><td>Nasser Asphalt, Atem in der kalten Luft, Dampf aus dem Gully</td></tr>
+          <tr><td>Parkhausdach als Finale</td><td>Bolzplatz oder Basketballplatz im Kiez mit Zaun und Tor</td></tr>
+          <tr><td>Song kommt aus dem Auto</td><td>Song kommt aus der Box, Handylichter statt Scheinwerfer</td></tr>
+          <tr><td>LED Preistafel mit 23:58</td><td>Echte öffentliche Uhr oder der Sperrbildschirm am Handy</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faden">
+  <div class="wrap">
+    <div class="motif">
+      <div class="duo">
+        <figure><img src="assets/faden.jpg" alt="Hände binden einen roten Faden um den kleinen Finger" loading="lazy"><figcaption>Previs · Intro, 0:07</figcaption></figure>
+        <figure><img src="assets/pinky.jpg" alt="Zwei kleine Finger eingehakt, der rote Faden um beide" loading="lazy"><figcaption>Previs · Hook, 0:36</figcaption></figure>
+      </div>
+      <div>
+        <div class="slate"><b>Szene 02</b><span>Das Motiv</span></div>
+        <h2>Der rote <span class="red">Faden</span></h2>
+        <p class="lead">Ein Pinky Promise, das man sehen kann. Der Faden ist das einzige starke Rot im Bild, darum findet das Auge ihn in jeder Einstellung sofort.</p>
+        <ol class="steps">
+          <li><span class="t">0:07</span><span>Im Zimmer bindet Aleyna ihn sich um den kleinen Finger.</span></li>
+          <li><span class="t">0:34</span><span>Im Treppenhaus hakt die Crew ein, der Faden geht auf alle über.</span></li>
+          <li><span class="t">1:09</span><span>Allein auf der Treppe läuft er hinter ihr nach unten zu ihren Leuten.</span></li>
+          <li><span class="t">1:43</span><span>Im Drop spannt er sich von ihrer Hand in die ganze Menge.</span></li>
+          <li><span class="t">2:03</span><span>Eine aus der Plastik Gruppe sitzt im Nachtbus und trägt jetzt auch einen.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="story">
+  <div class="wrap">
+    <div class="slate"><b>Szene 03</b><span>Storyline in fünf Akten</span></div>
+    <h2>Eine Nacht. <span class="red">Ein Wort.</span></h2>
+    <div class="story">
+      <div class="clockbox" aria-live="off">
+        <div class="lab"><span>Story Zeit</span><i>● REC</i></div>
+        <div class="clock" id="clock">23:41</div>
+        <div class="act" id="clockAct">Akt 1 · Das Versprechen</div>
+        <div class="bar"><span id="clockBar"></span></div>
+      </div>
+      <div class="acts" id="acts"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="song">
+  <div class="wrap">
+    <div class="slate"><b>Szene 04</b><span>Songkarte und Schnittrhythmus</span></div>
+    <h2>2:24 auf <span class="red">140 BPM</span></h2>
+    <p class="lead">Jeder Schnitt liegt auf dem Takt. Ein Takt dauert 1,71 Sekunden. In den Strophen schneiden wir alle zwei Takte, in Hook und Drop auf jeden Takt, im Breakdown fast gar nicht.</p>
+    <div class="map" id="map"></div>
+    <div class="legend">
+      <span style="--c:var(--thread)">Lautstärke des Songs</span>
+      <span style="--c:var(--teal)">Teile mit Gesang</span>
+      <span style="--c:var(--muted)">Ohne Gesang</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="look">
+  <div class="wrap">
+    <div class="slate"><b>Szene 05</b><span>Look und Bildsprache aus dem Moodboard</span></div>
+    <h2>Nachtblau, Teal und <span class="red">ein Rot</span></h2>
+    <div class="sw">
+      <div><i style="background:#0b1620"></i><b>Nachtblau</b><small>Grundton, Schatten fast schwarz</small></div>
+      <div><i style="background:#1f8f86"></i><b>Teal</b><small>Neon, Tankstellen und Unterführungen</small></div>
+      <div><i style="background:#e3262f"></i><b>Faden Rot</b><small>Nur Faden, Rücklichter, Uhr</small></div>
+      <div><i style="background:#e8962e"></i><b>Laterne</b><small>Natriumlicht auf nassem Asphalt</small></div>
+      <div><i style="background:#c08a6a"></i><b>Haut</b><small>Warm und echt, kein Plastik Look</small></div>
+    </div>
+    <div class="notes">
+      <div><h4>Licht</h4><p>Was die Straße hergibt: Laternen, Späti Kühlschränke, Neon, Handydisplays. Dazu kleine Akku Leuchten in Rot und Teal. Rücklichter fremder Autos als Bokeh im Hintergrund.</p></div>
+      <div><h4>Kamera</h4><p>Weitwinkel und Fisheye ganz tief am Boden, wenn die Crew im Bild ist. 50 bis 85 mm, wenn Aleyna allein ist. Handkamera in der Gruppe, ruhig im Breakdown.</p></div>
+      <div><h4>Textur</h4><p>35mm Korn, weiche Lichthöfe um Lampen, harter Aufsteckblitz wie bei Partyfotos. Echte Camcorder Aufnahmen mit Datum im Bild für die Erinnerungsmomente.</p></div>
+      <div><h4>Energie</h4><p>Crew in Formation auf die Kamera zu, Performance direkt in die Linse, Menschen, die wirklich feiern. Nichts gestellt Wirkendes.</p></div>
+      <div><h4>Styling</h4><p>Oversized Streetwear, Baggy Jeans, Lederjacke mit roten Streifen, Gold. Die Plastik Gruppe glänzt in durchsichtigen Ponchos über Fake Designer.</p></div>
+      <div><h4>Referenzen</h4><p>Das Moodboard mit 23 Bildern steht direkt darunter. Autos und Schnee darin nehmen wir nur als Licht und Farbe, nicht als Motiv.</p></div>
+    </div>
+    <div class="moodhead" id="moodHead" hidden><h3>Moodboard</h3><span class="mono muted">23 Referenzen</span></div>
+    <div class="mood" id="mood"></div>
+  </div>
+</section>
+
+<section class="strip-sec" id="previs">
+  <div class="wrap">
+    <div class="slate"><b>Szene 06</b><span>Previs Frames</span></div>
+    <h2>So kann es <span class="red">aussehen</span></h2>
+    <p class="lead muted">Vorab gibt es eine komplette KI Previs mit Lippensynchron auf den ganzen Song. Sie zeigt Timing, Framing und Licht. Gezeigt sind nur Bilder, die zum echten Dreh passen.</p>
+  </div>
+  <div class="strip-outer" id="stripOuter"><div class="strip" id="strip"></div></div>
+</section>
+
+<section class="sec" id="shots">
+  <div class="wrap">
+    <div class="slate"><b>Szene 07</b><span>Shot Script</span></div>
+    <h2>Jede Einstellung <span class="red">auf dem Takt</span></h2>
+    <p class="lead">Die komplette Liste in Songreihenfolge. Zeit ist die Stelle im Song, an der die Einstellung im Schnitt beginnt. Für den Drehtag nach Drehort filtern.</p>
+    <div class="tools" role="group" aria-label="Filter">
+      <button class="chip" data-typ="" aria-pressed="true" id="f-all">Alle</button>
+      <button class="chip" data-typ="Performance" aria-pressed="false" id="f-perf">Performance</button>
+      <button class="chip" data-typ="Story" aria-pressed="false" id="f-story">Story</button>
+      <button class="chip" data-typ="Insert" aria-pressed="false" id="f-insert">Insert</button>
+      <button class="chip" data-typ="VHS" aria-pressed="false" id="f-vhs">Camcorder</button>
+      <label class="muted" for="f-ort" style="font-size:13px">Drehort</label>
+      <select id="f-ort"><option value="">Alle Drehorte</option></select>
+      <span class="stats" id="stats"></span>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>Nr</th><th>Zeit</th><th>Songzeile</th><th>Bild</th><th>Einstellung</th><th>Drehort</th><th>Art</th><th>Previs</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="sec" id="orte">
+  <div class="wrap">
+    <div class="slate"><b>Szene 08</b><span>Drehorte</span></div>
+    <h2>Berlin, <span class="red">wie es ist</span></h2>
+    <p class="lead">Fast alles draußen und öffentlich, mit kleinem Team und ohne Aufbauten auf dem Gehweg. Wo Genehmigungen nötig sind, steht es dabei. Vorschläge werden vorher abgelaufen.</p>
+    <div class="cards" id="orteCards"></div>
+  </div>
+</section>
+
+<section class="sec" id="cast">
+  <div class="wrap">
+    <div class="slate"><b>Szene 09</b><span>Cast und Styling</span></div>
+    <div class="cast">
+      <figure><img src="assets/treppenhaus.jpg" alt="Aleyna mit ihrer Crew im Treppenhaus" loading="lazy" style="aspect-ratio:4/5;object-position:30% center"><figcaption>Previs · Aleyna und der kleine Kreis</figcaption></figure>
+      <div>
+        <h2>Ihr <span class="red">Kreis</span></h2>
+        <div class="people">
+          <div><b>Aleyna</b><p>Hauptrolle und Performance. Look 1 im Zimmer: grauer Oversize Hoodie. Look 2 für die Nacht: schwarze Lederjacke mit roten Streifen, weißes Top, dunkle Baggy Jeans, weiße Sneaker, goldene Creolen und Ringe, lange Haare mit zwei feinen Zöpfen, kleine schwarze Nylontasche. Der Faden sitzt immer am linken kleinen Finger.</p></div>
+          <div><b>Die Crew (4)</b><p>Am besten echte Freunde von Aleyna. Feste Looks für alle Szenen: schwarze Puffer mit Buzzcut, Beanie mit beiger Arbeitsjacke, blonder Bob in Leder, Locken in grüner Trainingsjacke.</p></div>
+          <div><b>Die Plastik Gruppe (4)</b><p>Die Hater aus den Kommentaren. Durchsichtige Regenponchos über glänzenden Fake Designer Outfits, große Sonnenbrillen, Ringlicht. Perfekt gestylt, aber nass.</p></div>
+          <div><b>Späti und Teenager</b><p>Der echte Betreiber des Spätis und zwei Teenager, die Aleyna mit dem iPhone fotografieren.</p></div>
+          <div><b>Crowd (30 bis 50)</b><p>Aufruf über Aleynas Instagram, Treffpunkt 19:45 am Platz. Alle bringen ihr Handy mit Taschenlampe mit, das ist das Licht im Finale.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="plan">
+  <div class="wrap">
+    <div class="slate"><b>Szene 10</b><span>Drehplan Entwurf</span></div>
+    <h2>Samstag, <span class="red">14.11.</span></h2>
+    <p class="lead">Geplant nach Licht und Lautstärke. Die blaue Stunde am Abend gibt uns das Morgenlicht fürs Outro. Laute Playback Szenen sind vor 22 Uhr durch, danach drehen wir die leisen Szenen.</p>
+    <ol class="plan" id="planList"></ol>
+    <p class="plancta"><a class="btn on" href="#drehtag">Drehtag als Checkliste öffnen</a></p>
+  </div>
+</section>
+
+<section class="sec" id="liste">
+  <div class="wrap">
+    <div class="slate"><b>Szene 11</b><span>Props, Technik und Lieferung</span></div>
+    <h2>Was mit <span class="red">muss</span></h2>
+    <div class="two">
+      <div><h3>Props</h3><ul class="check" id="props"></ul></div>
+      <div><h3>Technik</h3><ul class="check" id="tech"></ul></div>
+    </div>
+    <div style="height:72px"></div>
+    <h3>Lieferung</h3>
+    <div class="deliv">
+      <div><b>Musikvideo</b><span>16:9, volle Länge 2:24</span></div>
+      <div><b>3 Hochkant Cuts</b><span>9:16 für Reels und TikTok: Hook, Drop, Pinky Moment</span></div>
+      <div><b>Teaser</b><span>15 Sekunden zur Ankündigung</span></div>
+      <div><b>Blitzfotos</b><span>Stills vom Set für Cover und Posts</span></div>
+      <div><b>Camcorder BTS</b><span>Behind the Scenes im VHS Look</span></div>
+    </div>
+    <h3>Social Idee</h3>
+    <p class="lead">Der rote Faden als Trend: Fans binden sich einen Faden um den kleinen Finger und posten ihr eigenes Versprechen zum Hook. Kostet nichts, ist leicht nachzumachen und führt direkt zum Song.</p>
+  </div>
+</section>
+
+<section class="sec end">
+  <div class="wrap">
+    <p class="big">Wenn ich sage ja, <em>dann mach ich.</em></p>
+    <dl class="credits">
+      <div><dt>Artist</dt><dd>Aleyna Kuzh</dd></div>
+      <div><dt>Song</dt><dd>Pinky Promise</dd></div>
+      <div><dt>Regie</dt><dd>Nader Ait-Laouad</dd></div>
+      <div><dt>Produktion</dt><dd>Shuto Crew · shutocrew.de</dd></div>
+      <div><dt>Instagram</dt><dd>@shutocrew</dd></div>
+      <div><dt>Dreh</dt><dd>Samstag, 14.11.2026, Berlin</dd></div>
+    </dl>
+  </div>
+</section>
+
+</main>
+
+<div class="dt" id="dt" hidden role="dialog" aria-modal="true" aria-labelledby="dtTitle">
+  <div class="dthead"><div class="wrap">
+    <div class="dtrow">
+      <div><div class="eyebrow"><span class="long">Drehtag · </span>Samstag, 14.11.2026</div><h2 id="dtTitle">Drehreihenfolge</h2></div>
+      <button class="btn dtclose" id="dtClose" type="button">Zurück<span class="long"> zum Treatment</span></button>
+    </div>
+    <div class="prog"><i id="dtProg"></i></div>
+    <div class="dtrow">
+      <span class="dtstat" id="dtStat"></span>
+      <div class="dtbtns">
+        <button class="btn" id="dtNext" type="button">Nächste offene</button>
+        <button class="btn" id="dtOpen" type="button" aria-pressed="false">Nur offene</button>
+        <button class="btn" id="dtShare" type="button">Stand als Link</button>
+        <button class="btn warn" id="dtReset" type="button">Zurücksetzen</button>
+      </div>
+    </div>
+    <input class="copyfield" id="dtCopy" readonly hidden aria-label="Link zum aktuellen Stand">
+  </div></div>
+  <div class="wrap dtbody">
+    <p class="dtnote">Sortiert nach Drehort und Licht, nicht nach dem Song. An jedem Ort alles am Stück drehen, dann weiter. Die Haken merkt sich dieses Gerät. Mit „Stand als Link“ schickt ihr den aktuellen Stand ans Team.</p>
+    <div id="dtBlocks"></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+"use strict";
+var BAR = 4*60/140, OFF = 0.006;
+function fmt(s){var m=Math.floor(s/60), r=Math.floor(s%60);return m+":"+(r<10?"0":"")+r;}
+
+/* Originalbilder aus dem Moodboard: Dateien in assets/mb_XX.jpg eintragen, dann erscheinen sie im Look Teil */
+var MOODBOARD = [
+ ["mb_01","Rücklichter als Hauptlicht",720,900],["mb_02","35mm Blitz mitten auf der Straße",506,900],["mb_03","Rote LED Ziffern im Gesicht",720,900],["mb_04","Haltung und Farbe gegen Grau",730,900],
+ ["mb_05","Grün gegen Rot",793,900],["mb_06","Fisheye bei Nacht, ganz tief",506,900],["mb_07","Rotes Licht in grüner Fläche",900,599],["mb_08","Untersicht, die Box als Bühne",724,900],
+ ["mb_09","Spiel mit der Perspektive",736,736],["mb_10","Neon in Teal",505,900],["mb_11","Rotes Gegenlicht",720,900],["mb_12","Späti von unten, Sneaker vorne",600,900],
+ ["mb_13","Ruhe vorne, Chaos dahinter",386,552],["mb_14","Sturm und ein rotes Licht",720,900],["mb_15","Nachtsicht Fisheye mit Crew",506,900],["mb_16","Dampf an der Straßenecke",506,900],
+ ["mb_17","Styling Details",506,900],["mb_18","Weite Straßenszene",506,900],["mb_19","Racing Jacke bei Nacht",486,864],["mb_20","Crew im Treppenhaus",506,900],
+ ["mb_21","Warmes Licht im Zimmer",702,558],["mb_22","Nachtsicht ganz nah",736,414],["mb_23","Fisheye unter Neon",506,900]
+];
+
+var ORTE = {
+  Z:{n:"Zimmer mit Stadtblick",a:"Innen",d:"Wohnung mit Fenster zur Straße, möglichst hohe Etage. Lampe als einziges Licht.",g:"Wohnung von Bekannten"},
+  S:{n:"Straße vor dem Block",a:"Draußen",d:"Plattenbau Kiez mit Laternen, nassem Asphalt und Dampf aus dem Gully.",g:"Öffentlich, kleines Team ohne Aufbauten auf dem Gehweg"},
+  SP:{n:"Späti an der Ecke",a:"Innen und Tür",d:"Kühlschranklicht, Kasse, der echte Betreiber.",g:"Betreiber fragen, Kunden nur mit Einverständnis im Bild"},
+  T:{n:"Treppenhaus im Block",a:"Innen",d:"Graffiti, Fliesen, harter Blitz. Die Crew auf den Stufen.",g:"Zugang über Bewohner, Nachbarn vorher informieren"},
+  H:{n:"Bushaltestelle",a:"Draußen",d:"Wartehäuschen mit Licht. Regen per Gießkanne oder Schlauch aus dem Off, falls es nicht regnet.",g:"Öffentlich, Busverkehr nicht behindern"},
+  U:{n:"Öffentliche Uhr",a:"Draußen",d:"Vorschlag: die Berliner Mengenlehreuhr an der Budapester Straße, ihre roten Lampen passen zum Faden. Alternative: Bahnhofsuhr oder Handy Sperrbildschirm.",g:"Öffentlich, Licht und Blickwinkel vorher prüfen"},
+  B:{n:"Brücke mit Fernsehturm",a:"Draußen",d:"Vorschlag: Jannowitzbrücke oder Spreeufer, Fernsehturm im Hintergrund.",g:"Öffentlich"},
+  TR:{n:"Außentreppe",a:"Draußen",d:"Lange Fußgängertreppe aus Beton für den Gang allein nach oben.",g:"Öffentlich, in Bahnhöfen nur mit BVG Genehmigung"},
+  UF:{n:"Unterführung",a:"Draußen",d:"Kaltes Neonlicht, Beton, Camcorder Gang auf die Kamera zu.",g:"Öffentlich"},
+  P:{n:"Bolzplatz im Kiez",a:"Draußen",d:"Finale mit 30 bis 50 Leuten, Zaun mit Tor für die Plastik Gruppe, Box als Bühne.",g:"Öffentlicher Platz, laute Szenen vor 22 Uhr"},
+  NB:{n:"Nachtbus",a:"Optional",d:"Eine aus der Plastik Gruppe allein im Bus mit dem Faden am Finger.",g:"Nur mit BVG Drehgenehmigung, sonst an der Haltestelle"},
+  X:{n:"Post",a:"Schnitt",d:"Schwarzbild und Titelkarte.",g:"Keine"}
+};
+
+/* t = Takt im Song, Zeit wird daraus berechnet */
+var SHOTS = [
+ {t:0,p:"Intro",l:"Instrumental",b:"Camcorder Blick aus dem Fenster auf die nasse Straße, Datum und 23:41 im Bild.",e:"Weit, echter Camcorder, Fisheye",o:"Z",y:"VHS"},
+ {t:2,p:"Intro",l:"Instrumental",b:"Aleyna im grauen Hoodie auf dem Fensterbrett, das Handy brummt ohne Pause.",e:"Halbnah, 50 mm, Stativ, Lampe als einziges Licht",o:"Z",y:"Story"},
+ {t:4,p:"Intro",l:"Instrumental",b:"Sie bindet den roten Faden um den kleinen Finger.",e:"Makro, 100 mm",o:"Z",y:"Insert",i:"faden"},
+ {t:6,p:"Intro",l:"Instrumental",b:"Handy: \"00:00. Pinky Promise.\" wird gesendet.",e:"Über die Schulter, 50 mm",o:"Z",y:"Insert"},
+ {t:8,p:"Strophe 1",l:"Sie machen Fotos mit iPhone",b:"Performance vor dem Block, sie rappt direkt in die Linse.",e:"Fisheye 12 mm, Kamera am Boden",o:"S",y:"Performance"},
+ {t:10,p:"Strophe 1",l:"Nein, Schock, keine Designer",b:"Späti: Getränk vom Betreiber, zwei Teenager fotografieren sie mit dem iPhone.",e:"Fisheye vom Boden, Handkamera",o:"SP",y:"Story",i:"spaeti"},
+ {t:11,p:"Strophe 1",l:"ich trage nur Nike",b:"Weiße Sneaker treten aus der Haustür auf nassen Asphalt, Dampf aus dem Gully.",e:"Bodennah, 24 mm",o:"S",y:"Insert"},
+ {t:12,p:"Strophe 1",l:"Schnee fällt auf mein X3",b:"Close Performance unter der Laterne, Atem in der kalten Luft.",e:"85 mm, offene Blende",o:"S",y:"Performance"},
+ {t:14,p:"Strophe 1",l:"in Berlin musst du fit sein",b:"Performance mit der Crew im Rücken, fremde Rücklichter als Bokeh.",e:"35 mm, Augenhöhe",o:"S",y:"Performance"},
+ {t:16,p:"Strophe 1",l:"Aleyna hat Killer Performance",b:"Camcorder ganz nah, sie lehnt sich in die Linse, Pinky Geste.",e:"Camcorder, Fisheye Vorsatz",o:"S",y:"VHS"},
+ {t:18,p:"Strophe 1",l:"Haters sliden in die Comments",b:"Im Gehen: Handy voller Kommentare, der Faden am Finger.",e:"Über die Schulter, Gimbal",o:"S",y:"Insert"},
+ {t:20,p:"Hook",l:"Pinky Promise, wenn ich sage ja",b:"Treppenhaus: die Crew auf den Stufen, Aleyna hakt den kleinen Finger ein.",e:"18 mm, harter Blitz",o:"T",y:"Story",i:"treppenhaus"},
+ {t:21,p:"Hook",l:"dann mach ich",b:"Zwei kleine Finger, der Faden geht auf alle über.",e:"Makro mit Blitz",o:"T",y:"Insert",i:"pinky"},
+ {t:22,p:"Hook",l:"alle anderen sind Plastik",b:"Die Plastik Gruppe posiert für Selfies, Ringlicht, Ponchos.",e:"24 mm, tief",o:"H",y:"Story",i:"plastik"},
+ {t:23,p:"Hook",l:"auch in Real Life",b:"Camcorder: die Crew springt im Treppenhaus.",e:"Camcorder, Fisheye Vorsatz",o:"T",y:"VHS"},
+ {t:24,p:"Hook",l:"Ja, ich pull up",b:"Pull Up zu Fuß: die Crew in Formation auf die Kamera zu, Aleyna vorne mit der Box auf der Schulter.",e:"Fisheye tief, Kamera geht rückwärts",o:"S",y:"Story"},
+ {t:25,p:"Hook",l:"drücke aufs Pedal",b:"Sneaker tritt in die Pfütze, Wasser spritzt.",e:"Bodennah, Zeitlupe 50 fps",o:"S",y:"Insert"},
+ {t:26,p:"Hook",l:"ihr könnt im Regen stehen",b:"Die Crew zieht an der Bushaltestelle vorbei, die Plastik Gruppe steht im Regen.",e:"24 mm, seitlich mitgehen",o:"H",y:"Story"},
+ {t:27,p:"Hook",l:"du kommst eh zu spät",b:"Die Uhr zeigt 23:58, Aleyna lehnt daneben im roten Licht.",e:"35 mm, rote Akku Leuchte",o:"U",y:"Performance",i:"uhr"},
+ {t:28,p:"Hook",l:"Brauchst nicht zu versuchen",b:"Performance mit der Crew unter Neon.",e:"20 mm",o:"U",y:"Performance"},
+ {t:30,p:"Hook",l:"Hörst mein Unreleased",b:"Sie spielt der Crew ein paar Sekunden vom Unreleased am Handy vor, alle rasten aus.",e:"35 mm, Handkamera",o:"S",y:"Story"},
+ {t:31,p:"Hook",l:"aus der Box",b:"Die Crew läuft lachend weiter und singt, Kamera rückwärts vor ihnen.",e:"24 mm, Gimbal",o:"S",y:"Story"},
+ {t:32,p:"Post Hook",l:"So blessed",b:"Camcorder: die Crew tanzt an der Ecke vor dem Späti.",e:"Camcorder",o:"SP",y:"VHS"},
+ {t:34,p:"Post Hook",l:"mehr Para verdien",b:"Close Performance, Geld Geste mit den Ringen.",e:"85 mm",o:"S",y:"Performance"},
+ {t:36,p:"Post Hook",l:"never too much",b:"Aleyna steht auf der Box, die Crew um sie herum.",e:"Fisheye von unten",o:"B",y:"Performance"},
+ {t:38,p:"Post Hook",l:"ich run it up",b:"Weit: die Crew auf der Brücke, Fernsehturm im Hintergrund.",e:"24 mm",o:"B",y:"Story"},
+ {t:40,p:"Strophe 2",l:"Aleyna steppt makellos",b:"Sie geht allein die Treppe hoch, der Faden läuft hinter ihr nach unten.",e:"35 mm, von unten, symmetrisch",o:"TR",y:"Story",i:"treppe"},
+ {t:42,p:"Strophe 2",l:"Neider atemlos",b:"Die Plastik Gruppe starrt auf ihre Handys.",e:"35 mm",o:"H",y:"Story",i:"hater"},
+ {t:43,p:"Strophe 2",l:"keiner kann so bringen",b:"Camcorder: sie läuft durch die Unterführung auf die Kamera zu.",e:"Camcorder",o:"UF",y:"VHS",i:"vhs_unterfuehrung"},
+ {t:44,p:"Strophe 2",l:"Hab das Game in meiner Prada Tasche",b:"Der USB Stick mit dem Unreleased kommt aus der kleinen schwarzen Tasche.",e:"Makro",o:"TR",y:"Insert"},
+ {t:45,p:"Strophe 2",l:"die Moves, die ich grade mach",b:"Close Performance, Fernsehturm unscharf im Hintergrund.",e:"50 mm",o:"B",y:"Performance"},
+ {t:46,p:"Strophe 2",l:"Kreis klein",b:"Von oben: die Crew im Kreis, der Faden als Ring zwischen den Fingern.",e:"Von der Leiter, 14 mm",o:"P",y:"Story"},
+ {t:48,p:"Breakdown",l:"Pinky Promise (leise)",b:"Camcorder Nachtsicht: leerer Platz, Aleyna allein auf der Box.",e:"Camcorder, statisch",o:"P",y:"VHS"},
+ {t:50,p:"Breakdown",l:"alle anderen sind Plastik",b:"Gesicht im Handylicht, 23:59 auf dem Sperrbildschirm, sie singt leise mit.",e:"85 mm",o:"P",y:"Performance"},
+ {t:52,p:"Breakdown",l:"ich pull up",b:"Nieselregen auf dem Faden am Finger.",e:"Makro",o:"P",y:"Insert"},
+ {t:54,p:"Breakdown",l:"du kommst eh zu spät",b:"Camcorder: die Leute kommen mit Handylichtern auf den Platz.",e:"Camcorder",o:"P",y:"VHS",i:"vhs_menge"},
+ {t:56,p:"Breakdown",l:"Hörst mein Unreleased",b:"Weit von oben: der Platz füllt sich.",e:"Vom Dach oder Treppenhausfenster",o:"P",y:"Story"},
+ {t:59.25,p:"Pause",l:"Stille vor dem Drop",b:"Schwarzbild.",e:"Schnitt",o:"X",y:"Post"},
+ {t:60,p:"Drop",l:"Ja, ich pull up",b:"Weißblitz, die Box geht an, Arm hoch, der Faden spannt sich in die Menge.",e:"20 mm, tief, Handylichter",o:"P",y:"Story"},
+ {t:61,p:"Drop",l:"drücke aufs Pedal",b:"Performance mit Blitz, die Crew hinter ihr.",e:"24 mm, Blitz",o:"P",y:"Performance"},
+ {t:62,p:"Drop",l:"ihr könnt im Regen stehen",b:"Über die Schulter: der Faden über der Menge.",e:"35 mm",o:"P",y:"Story"},
+ {t:63,p:"Drop",l:"du kommst eh zu spät",b:"Die Plastik Gruppe klatschnass am Zaun, das Tor bleibt zu.",e:"24 mm, durch den Zaun",o:"P",y:"Story",i:"zu_spaet"},
+ {t:64,p:"Drop",l:"Brauchst nicht zu versuchen",b:"Close Performance.",e:"50 mm",o:"P",y:"Performance"},
+ {t:65,p:"Drop",l:"Hörst mein Unreleased",b:"Camcorder: die Crew springt mitten in der Menge.",e:"Camcorder",o:"P",y:"VHS"},
+ {t:66,p:"Drop",l:"Instrumental",b:"Von oben: die Menge um die Box, Fäden wie ein Netz.",e:"Von der Leiter, 14 mm",o:"P",y:"Story"},
+ {t:67,p:"Drop",l:"aus der Box",b:"Performance auf der Box.",e:"Fisheye von unten",o:"P",y:"Performance"},
+ {t:68,p:"Outro",l:"So blessed",b:"Sie tanzt auf der Box, die Menge feiert.",e:"24 mm",o:"P",y:"Story"},
+ {t:72,p:"Outro",l:"never too much",b:"Eine aus der Plastik Gruppe allein im Nachtbus, jetzt mit rotem Faden am Finger.",e:"50 mm",o:"NB",y:"Story",i:"bus"},
+ {t:74,p:"Outro",l:"ich run it up",b:"Letzte Zeile, sie hebt den kleinen Finger in die Kamera.",e:"50 mm",o:"P",y:"Performance"},
+ {t:76,p:"Outro",l:"Instrumental",b:"Blaue Stunde: der Platz ist leer, sie sitzt allein auf der Box.",e:"Weit, Stativ",o:"P",y:"Story"},
+ {t:79,p:"Outro",l:"Instrumental",b:"Kleiner Finger mit Faden in die Kamera, ein Lächeln.",e:"50 mm",o:"P",y:"Story"},
+ {t:82,p:"Outro",l:"Instrumental",b:"Titelkarte PINKY PROMISE.",e:"Schnitt",o:"X",y:"Post"}
+];
+SHOTS.forEach(function(s,i){s.n=i+1; s.sec = s.t===0?0:OFF+s.t*BAR;});
+
+var PARTS = [
+ {n:"Intro",a:0,b:8,v:false},{n:"Strophe 1",a:8,b:20,v:true},{n:"Hook",a:20,b:32,v:true},{n:"Post Hook",a:32,b:40,v:true},
+ {n:"Strophe 2",a:40,b:48,v:true},{n:"Breakdown",a:48,b:59.25,v:true},{n:"Pause",a:59.25,b:60,v:false},{n:"Drop",a:60,b:68,v:true},
+ {n:"Outro",a:68,b:84,v:true}
+];
+
+var ACTS = [
+ {n:"Akt 1",h:"Das Versprechen",tc:"0:00 bis 0:13",part:"Intro",clock:"23:41",img:"faden",ly:"Instrumental",tx:"Ein Zimmer im Block, warme Lampe, draußen nasse Straßen. Das Handy brummt ohne Pause: \"Song kommt eh nie\", \"die kommt zu spät\". Aleyna tippt \"00:00. Pinky Promise.\" und bindet sich einen roten Faden um den kleinen Finger. Der Beat setzt ein."},
+ {n:"Akt 2",h:"Raus",tc:"0:13 bis 0:34",part:"Strophe 1",clock:"23:47",img:"spaeti",ly:"Sie machen Fotos mit iPhone",tx:"Lederjacke an, raus auf die Straße. Atem in der Kälte, Dampf aus dem Gully. Im Späti erkennen sie zwei Teenager und fotografieren sie mit dem iPhone. Performance vor dem Block, die Kommentare laufen weiter."},
+ {n:"Akt 3",h:"Der Kreis",tc:"0:34 bis 1:09",part:"Hook und Post Hook",clock:"23:53",img:"treppenhaus",ly:"Pinky Promise, wenn ich sage ja, dann mach ich",tx:"Im Treppenhaus warten ihre Leute. Einer nach dem anderen hakt ein, der Faden geht auf alle über. Die Crew zieht in Formation durch den Kiez, an der Bushaltestelle steht die Plastik Gruppe im Regen. Die Uhr zeigt 23:58. Auf der Brücke vor dem Fernsehturm feiert der Kreis."},
+ {n:"Akt 4",h:"Allein",tc:"1:09 bis 1:43",part:"Strophe 2 und Breakdown",clock:"23:59",img:"treppe",ly:"Nie nach unten, ich geh grade hoch",tx:"Aleyna geht allein die Treppe hoch, der Faden läuft hinter ihr nach unten. Sie holt den USB Stick aus der Tasche. Im Breakdown wird es still: der Platz ist fast leer, Camcorder Nachtsicht, 23:59 auf dem Sperrbildschirm. Dann kommen die ersten Handylichter."},
+ {n:"Akt 5",h:"00:00",tc:"1:43 bis 2:24",part:"Drop und Outro",clock:"00:00",img:"zu_spaet",ly:"Du kommst eh zu spät",tx:"Punkt Mitternacht. Weißblitz, die Box geht an, der Song läuft. Der Platz ist voll, Handys hoch, der Faden spannt sich von ihrer Hand in die Menge. Die Plastik Gruppe kommt klatschnass am Zaun an, das Tor bleibt zu. Im Nachtbus trägt eine von ihnen jetzt auch einen Faden. Blaue Stunde, der Platz ist leer, Aleyna hebt den kleinen Finger."}
+];
+
+var PREVIS = [
+ ["faden","Intro · Faden"],["spaeti","Strophe 1 · Späti"],["treppenhaus","Hook · Treppenhaus"],["pinky","Hook · Pinky Promise"],
+ ["plastik","Hook · Plastik Gruppe"],["uhr","Hook · 23:58, Licht Referenz"],["treppe","Strophe 2 · allein nach oben"],["hater","Strophe 2 · Neider atemlos"],
+ ["vhs_unterfuehrung","Strophe 2 · Camcorder"],["vhs_menge","Breakdown · die Leute kommen"],["zu_spaet","Drop · zu spät"],["bus","Outro · Hater wird Fan"]
+];
+
+/* Drehtag: Reihenfolge nach Drehort, Licht und Nachtruhe. Jede Einstellung (außer Post) genau einmal. Drehplan und Drehtag Ansicht lesen beide hieraus. */
+var DREHTAG = [
+ {z:"13:00",w:"Treffen und Briefing",d:"Styling und Make-up, Playback Test mit der Box, Faden und Props prüfen. Basis in der Wohnung.",orte:["Z"],cast:"Alle",mit:"Komplette Props und Technik Liste",shots:[]},
+ {z:"14:00",w:"Inserts und Makros an der Basis",d:"Makros brauchen kein Nachtlicht, darum zuerst. Nieselregen kommt aus der Sprühflasche.",orte:["Z"],cast:"Aleyna, nur Hände",mit:"Roter Faden, Handy mit Chat, USB Stick, kleine Tasche, Sprühflasche, Makro Objektiv",shots:[3,4,30,35]},
+ {z:"15:00",w:"Treppenhaus mit Blitz",d:"Innen und unabhängig vom Tageslicht. Erst die Totale auf den Stufen, dann das Makro, dann der Camcorder Sprung.",orte:["T"],cast:"Aleyna, Crew (4)",mit:"Aufsteckblitz, Camcorder, Faden",shots:[12,13,15]},
+ {z:"15:50",w:"Umzug zum Bolzplatz",d:"Aufbau, Box und Licht platzieren, Blickwinkel für die blaue Stunde festlegen.",orte:["P"],cast:"Team",mit:"Box, Stativ",shots:[]},
+ {z:"16:10",w:"Blaue Stunde, nur rund 40 Minuten",d:"Sonnenuntergang gegen 16:15. Das Abendlicht spielt das Morgenlicht im Outro.",orte:["P"],cast:"Aleyna",mit:"Stativ, Box, Faden",shots:[50,51],hot:true},
+ {z:"17:00",w:"Straße vor dem Block und Späti",d:"Erst die Performance, dann die Inserts, dann die Crew in Bewegung, zum Schluss der Späti.",orte:["S","SP"],cast:"Aleyna, Crew (4), Späti Betreiber, 2 Teenager",mit:"Fisheye, Camcorder, Gimbal, Box für den Pull Up, Getränk und Bargeld für den Späti",shots:[5,8,9,10,24,7,11,17,16,22,21,6,23]},
+ {z:"18:45",w:"Brücke, Außentreppe, Unterführung",d:"Fernsehturm im Hintergrund, dann allein die Treppe hoch, dann der Camcorder Gang.",orte:["B","TR","UF"],cast:"Aleyna, Crew (4)",mit:"Box, langer Faden für die Treppe, Camcorder",shots:[25,26,31,27,29]},
+ {z:"19:30",w:"Pause und Essen",d:"Crowd Treffpunkt um 19:45 am Platz.",orte:[],cast:"Alle",mit:"",shots:[]},
+ {z:"20:00",w:"Finale am Bolzplatz mit Playback",d:"Erst die leeren Bilder ohne Crowd, dann kommt die Crowd, zum Schluss die Feier. Laute Szenen bis spätestens 21:45.",orte:["P"],cast:"Aleyna, Crew (4), Plastik Gruppe (4), Crowd 30 bis 50",mit:"Box, Playback, Faden 30 m, Leiter, Camcorder, Blitz",shots:[32,33,34,36,37,39,40,41,42,43,44,45,46,47,49],hot:true},
+ {z:"22:00",w:"Bushaltestelle und Uhr",d:"Leise Szenen nach der Nachtruhe. Regen per Gießkanne, wenn es trocken ist.",orte:["H","U"],cast:"Aleyna, Crew (4), Plastik Gruppe (4)",mit:"Ponchos, Ringlicht, Selfiestick, Gießkanne, Handtücher, rote Akku Leuchte",shots:[14,28,18,19,20]},
+ {z:"23:15",w:"Zimmer Intro",d:"Fenster bei Nacht, die Lampe als einziges Licht.",orte:["Z"],cast:"Aleyna",mit:"Grauer Hoodie, Camcorder, Lampe",shots:[1,2]},
+ {z:"00:00",w:"Echte Mitternacht",d:"Handy Sperrbildschirm springt auf 00:00, Insert für den Drop. Danach Drehschluss gegen 00:30. Nachtbus nur mit BVG Genehmigung.",orte:["NB"],cast:"Eine aus der Plastik Gruppe",mit:"Handy",shots:[48],hot:true}
+];
+var SHOTMAP = {}; SHOTS.forEach(function(s){ SHOTMAP[s.n]=s; });
+var DT_TOTAL = DREHTAG.reduce(function(a,b){ return a+b.shots.length; },0);
+(function(){
+  var seen={};
+  DREHTAG.forEach(function(b){ b.shots.forEach(function(n){ if(seen[n]) console.warn("Shot doppelt im Drehtag:",n); seen[n]=1; }); });
+  SHOTS.forEach(function(s){ if(s.y!=="Post" && !seen[s.n]) console.warn("Shot fehlt im Drehtag:",s.n); });
+})();
+/* Gedrehte Einstellungen: im eigenen Browser gemerkt, per Link #drehtag=1.5.7 übertragbar */
+var DONE = {};
+try{ JSON.parse(localStorage.getItem("pp-drehtag")||"[]").forEach(function(n){ DONE[n]=true; }); }catch(e){}
+function saveDone(){ try{ localStorage.setItem("pp-drehtag",JSON.stringify(doneList())); }catch(e){} }
+function doneList(){ return Object.keys(DONE).filter(function(k){ return DONE[k]; }).map(Number).sort(function(a,b){ return a-b; }); }
+function doneCount(){ var c=0; DREHTAG.forEach(function(b){ b.shots.forEach(function(n){ if(DONE[n]) c++; }); }); return c; }
+(function(){
+  var m=/^#drehtag=([\d.]+)/.exec(location.hash);
+  if(m){ m[1].split(".").forEach(function(n){ if(SHOTMAP[n]) DONE[+n]=true; }); saveDone();
+    try{ history.replaceState(null,"",location.pathname+location.search+"#drehtag"); }catch(e){} }
+})();
+
+var PROPS = ["Roter Faden aus Baumwolle, 3 Rollen, rund 30 m fürs Finale","Große Bluetooth Box ohne sichtbares Logo","Playback Lautsprecher, Song auf zwei Handys","Silberner USB Stick, kleine schwarze Nylontasche","Handy mit Chat \"00:00. Pinky Promise.\" und Sperrbildschirm 23:59","4 durchsichtige Regenponchos, glänzende Outfits, große Sonnenbrillen","Ringlicht und Selfiestick für die Plastik Gruppe","Gießkanne oder Schlauch mit Brause, Handtücher, Wechselkleidung","Getränk und Bargeld für den Späti","Leiter für die Draufsichten"];
+var TECH = ["Hauptkamera mit Festbrennweiten 24, 35, 50, 85 mm","Fisheye oder Weitwinkel 12 bis 14 mm","Makro Objektiv","Echter Camcorder für die VHS Momente","Aufsteckblitz oder Analogkamera mit Blitz","Akku Leuchten in Rot und Teal, eine weiche Fläche fürs Gesicht","Gimbal optional, sonst Handkamera","Akkus, Powerbanks, Speicherkarten, Gaffer"];
+
+var ENERGY = [-21.6,-20.4,-21.5,-21.9,-13.8,-9.6,-9.3,-10.3,-10.4,-13.2,-10.9,-9.5,-10.3,-12.0,-12.9,-9.4,-10.1,-9.6,-9.6,-9.8,-11.6,-9.4,-9.7,-14.2,-10.7,-10.5,-10.3,-11.0,-17.1,-15.4,-14.3,-15.0,-14.3,-15.9,-10.6,-9.7,-9.4,-9.4,-9.3,-11.0,-10.0,-10.1,-9.6,-12.7,-21.4,-21.6,-21.3,-21.7];
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+
+/* Akte */
+var actsEl=document.getElementById("acts");
+actsEl.innerHTML = ACTS.map(function(a,i){
+  return '<article class="actc" data-i="'+i+'">'+
+   '<div class="meta"><b>'+a.n+'</b><span>'+a.tc+'</span><span>'+a.part+'</span><span>Story Zeit '+a.clock+'</span></div>'+
+   '<h3>'+esc(a.h)+'</h3>'+
+   '<div class="img"><img src="assets/'+a.img+'.jpg" alt="Previs '+esc(a.h)+'" loading="lazy"></div>'+
+   '<p class="lyric">'+esc(a.ly)+'</p>'+
+   '<p>'+esc(a.tx)+'</p></article>';
+}).join("");
+
+/* Previs Band */
+document.getElementById("strip").innerHTML = PREVIS.map(function(p){
+  return '<figure><img src="assets/'+p[0]+'.jpg" alt="Previs '+esc(p[1])+'" loading="lazy"><figcaption>'+esc(p[1])+'</figcaption></figure>';
+}).join("");
+
+/* Moodboard Originale, falls vorhanden */
+if(MOODBOARD.length){
+  document.getElementById("moodHead").hidden=false;
+  document.getElementById("mood").innerHTML = MOODBOARD.map(function(m,i){return '<figure><img src="assets/'+m[0]+'.jpg" width="'+m[2]+'" height="'+m[3]+'" style="aspect-ratio:'+m[2]+'/'+m[3]+'" alt="Moodboard Referenz: '+esc(m[1])+'" loading="lazy"><figcaption>'+(i<9?"0":"")+(i+1)+' · '+esc(m[1])+'</figcaption></figure>';}).join("");
+}
+
+/* Songkarte */
+(function(){
+  var W=1000,H=230,top=26,eh=110,base=top+eh, total=144;
+  function x(s){return s/total*W;}
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Lautstärke und Aufbau des Songs über 2 Minuten 24">';
+  for(var g=0;g<=144;g+=12){svg+='<line x1="'+x(g)+'" y1="'+top+'" x2="'+x(g)+'" y2="'+(base+44)+'" stroke="var(--line)" stroke-width="1"/>';
+    svg+='<text x="'+x(g)+'" y="'+(H-6)+'" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--muted)" text-anchor="'+(g===0?'start':(g===144?'end':'middle'))+'">'+fmt(g)+'</text>';}
+  var pts=ENERGY.map(function(db,i){var s=i*3+1.5; var v=Math.max(0,Math.min(1,(db+24)/16)); return [x(s), base - v*eh];});
+  var d="M"+x(0)+" "+base+" L"+pts.map(function(p){return p[0].toFixed(1)+" "+p[1].toFixed(1);}).join(" L")+" L"+x(144)+" "+base+" Z";
+  svg+='<path d="'+d+'" fill="var(--thread)" fill-opacity=".18" stroke="var(--thread)" stroke-width="1.6" id="energy"/>';
+  PARTS.forEach(function(p){
+    var a=p.a===0?0:OFF+p.a*BAR, b=Math.min(144,OFF+p.b*BAR); var y=base+8;
+    svg+='<rect x="'+(x(a)+1)+'" y="'+y+'" width="'+Math.max(0,x(b)-x(a)-2)+'" height="26" fill="'+(p.v?'var(--teal)':'var(--muted)')+'" fill-opacity="'+(p.v?'.85':'.35')+'"/>';
+    if(x(b)-x(a)>44) svg+='<text x="'+(x(a)+6)+'" y="'+(y+17)+'" font-family="Manrope, sans-serif" font-size="12" font-weight="700" fill="var(--bg)">'+p.n+'</text>';
+  });
+  svg+='<line id="playhead" x1="0" y1="'+(top-6)+'" x2="0" y2="'+(base+36)+'" stroke="var(--ink)" stroke-width="1.5"/>';
+  svg+='<text x="'+x(OFF+60*BAR)+'" y="'+(top-10)+'" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--thread)" text-anchor="middle">DROP 1:43</text>';
+  svg+='<text x="'+x(OFF+48*BAR)+'" y="'+(top-10)+'" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--muted)" text-anchor="middle">BREAKDOWN</text>';
+  svg+='</svg>';
+  document.getElementById("map").innerHTML=svg;
+})();
+
+/* Shot Script */
+var sel=document.getElementById("f-ort");
+Object.keys(ORTE).forEach(function(k){ if(k==="X")return; var o=document.createElement("option"); o.value=k; o.textContent=ORTE[k].n; sel.appendChild(o);});
+var state={typ:"",ort:""};
+function render(){
+  var rows="", last="", n=0, c={Performance:0,Story:0,Insert:0,VHS:0,Post:0};
+  SHOTS.forEach(function(s){
+    if(state.typ && s.y!==state.typ) return;
+    if(state.ort && s.o!==state.ort) return;
+    if(s.p!==last){ var pp=PARTS.filter(function(x){return x.n===s.p;})[0]; var a=pp?(pp.a===0?0:OFF+pp.a*BAR):s.sec;
+      rows+='<tr class="part"><td colspan="8">'+esc(s.p)+'<span>ab '+fmt(a)+'</span></td></tr>'; last=s.p; }
+    n++; c[s.y]++;
+    rows+='<tr'+(DONE[s.n]?' class="done"':'')+'><td class="nr">'+(s.n<10?"0":"")+s.n+'</td><td class="tc">'+fmt(s.sec)+'</td><td class="ly">'+esc(s.l)+'</td><td class="bi">'+esc(s.b)+'</td><td class="ei muted">'+esc(s.e)+'</td><td class="oi">'+esc(ORTE[s.o].n)+'</td><td class="ty"><span class="tag '+s.y+'">'+(s.y==="VHS"?"Camcorder":s.y)+'</span></td><td class="im">'+(s.i?'<img src="assets/'+s.i+'.jpg" alt="" loading="lazy">':'')+'</td></tr>';
+  });
+  document.getElementById("tbody").innerHTML=rows||'<tr><td colspan="8" class="muted">Keine Einstellung passt zu diesem Filter.</td></tr>';
+  document.getElementById("stats").textContent=n+" Einstellungen · "+c.Performance+" Performance · "+c.Story+" Story · "+c.Insert+" Insert · "+c.VHS+" Camcorder";
+}
+Array.prototype.forEach.call(document.querySelectorAll(".chip"),function(b){
+  b.addEventListener("click",function(){
+    state.typ=b.getAttribute("data-typ");
+    Array.prototype.forEach.call(document.querySelectorAll(".chip"),function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});
+    render(); if(window.ScrollTrigger) ScrollTrigger.refresh();
+  });
+});
+sel.addEventListener("change",function(){state.ort=sel.value;render(); if(window.ScrollTrigger) ScrollTrigger.refresh();});
+render();
+
+/* Drehorte */
+document.getElementById("orteCards").innerHTML = Object.keys(ORTE).filter(function(k){return k!=="X";}).map(function(k){
+  var o=ORTE[k], nums=SHOTS.filter(function(s){return s.o===k;}).map(function(s){return s.n;});
+  return '<div class="card"><div class="k">'+esc(o.a)+'</div><h3>'+esc(o.n)+'</h3><p>'+esc(o.d)+'</p><div class="shots">'+nums.length+' Einstellungen · Nr '+nums.join(", ")+'</div><div class="need">'+esc(o.g)+'</div></div>';
+}).join("");
+
+/* Drehplan im Treatment, aus denselben Daten wie die Drehtag Ansicht */
+function renderPlan(){
+  document.getElementById("planList").innerHTML = DREHTAG.map(function(p){
+    var orte=p.orte.map(function(k){ return ORTE[k].n; }).join(", "), d=p.shots.filter(function(n){ return DONE[n]; }).length;
+    return '<li class="'+(p.hot?"hot":"")+'"><div class="time">'+p.z+'</div><div class="what">'+esc(p.w)+'</div><div class="det">'+esc(p.d)+(orte?' · '+esc(orte):'')+
+      (p.shots.length?' · Shots '+p.shots.join(", ")+' ('+d+' von '+p.shots.length+' gedreht)':'')+'</div></li>';
+  }).join("");
+}
+renderPlan();
+
+/* Drehtag Ansicht */
+var dt=document.getElementById("dt"), dtBlocks=document.getElementById("dtBlocks");
+function nowBlock(){
+  var t=(Date.now()-new Date(2026,10,14,0,0).getTime())/60000, idx=-1;
+  if(t<0 || t>1440+180) return -1;
+  DREHTAG.forEach(function(b,i){ var p=b.z.split(":"), m=(+p[0])*60+(+p[1]); if(+p[0]<6) m+=1440; if(t>=m) idx=i; });
+  return idx;
+}
+function renderDT(){
+  var nb=nowBlock();
+  dtBlocks.innerHTML = DREHTAG.map(function(b,i){
+    var orte=b.orte.map(function(k){ return ORTE[k].n; }).join(", "), need=b.orte.map(function(k){ return ORTE[k].g; }).join(" · ");
+    var all=b.shots.length, d=b.shots.filter(function(n){ return DONE[n]; }).length, ok=all>0 && d===all;
+    var items=b.shots.map(function(n){ var s=SHOTMAP[n];
+      return '<li class="'+(DONE[n]?'done':'')+'"><label for="dt-'+n+'"><input type="checkbox" id="dt-'+n+'" data-n="'+n+'"'+(DONE[n]?' checked':'')+'>'+
+        '<span class="n">'+(n<10?'0':'')+n+'</span><span class="tx"><b>'+esc(s.b)+'</b><small>'+fmt(s.sec)+' · '+esc(s.p)+' · „'+esc(s.l)+'“<br>'+esc(s.e)+(b.orte.length>1?' · '+esc(ORTE[s.o].n):'')+'</small></span>'+
+        '<span class="tag '+s.y+'">'+(s.y==='VHS'?'Camcorder':s.y)+'</span></label></li>'; }).join("");
+    return '<section class="blk'+(ok?' ok':'')+(i===nb?' now':'')+'" id="blk-'+i+'">'+
+      '<div class="blkhead"><span class="time">'+b.z+'</span><h3>'+esc(b.w)+(i===nb?'<span class="badge">Jetzt</span>':'')+(ok?'<span class="badge ok">Gedreht</span>':'')+'</h3><span class="bp">'+(all?d+'/'+all:'')+'</span></div>'+
+      '<div class="bmeta"><span>'+esc(b.d)+'</span>'+(orte?'<span><b>Ort:</b> '+esc(orte)+'</span>':'')+(b.cast?'<span><b>Cast:</b> '+esc(b.cast)+'</span>':'')+
+      (b.mit?'<span><b>Mitnehmen:</b> '+esc(b.mit)+'</span>':'')+(all&&need?'<span><b>Klären:</b> '+esc(need)+'</span>':'')+'</div>'+
+      (all?'<ul class="shotl">'+items+'</ul>':'')+'</section>';
+  }).join("");
+  updateCounts();
+}
+function updateCounts(){
+  var c=doneCount();
+  document.getElementById("dtCount").textContent=c+"/"+DT_TOTAL;
+  document.getElementById("dtStat").textContent=c+" von "+DT_TOTAL+" Einstellungen gedreht · "+(DT_TOTAL-c)+" offen";
+  document.getElementById("dtProg").style.width=(c/DT_TOTAL*100).toFixed(1)+"%";
+}
+dtBlocks.addEventListener("change",function(ev){
+  var n=+ev.target.getAttribute("data-n"); if(!n) return;
+  if(ev.target.checked) DONE[n]=true; else delete DONE[n];
+  saveDone();
+  ev.target.closest("li").classList.toggle("done",!!DONE[n]);
+  var blk=ev.target.closest(".blk"), b=DREHTAG[+blk.id.slice(4)], d=b.shots.filter(function(x){ return DONE[x]; }).length;
+  if((d===b.shots.length)!==blk.classList.contains("ok")) renderDT(); else { blk.querySelector(".bp").textContent=d+"/"+b.shots.length; updateCounts(); }
+  render(); renderPlan();
+});
+var toastT;
+function toast(m){ var t=document.getElementById("toast"); t.textContent=m; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(function(){ t.hidden=true; },2400); }
+document.getElementById("dtNext").addEventListener("click",function(){
+  var li=dtBlocks.querySelector("li:not(.done)");
+  if(!li){ toast("Alles gedreht. Drehschluss!"); return; }
+  li.scrollIntoView({block:"center",behavior:reduce?"auto":"smooth"});
+  li.classList.add("flash"); setTimeout(function(){ li.classList.remove("flash"); },1600);
+});
+document.getElementById("dtOpen").addEventListener("click",function(){
+  var on=!dt.classList.contains("open-only"); dt.classList.toggle("open-only",on);
+  this.classList.toggle("on",on); this.setAttribute("aria-pressed",on?"true":"false");
+});
+document.getElementById("dtShare").addEventListener("click",function(){
+  var ids=doneList(), url=location.origin+location.pathname+"#drehtag="+ids.join("."), f=document.getElementById("dtCopy");
+  f.value=url;
+  function manuell(){ f.hidden=false; f.focus(); f.select(); toast("Link markiert, bitte kopieren"); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(function(){ f.hidden=true; toast("Link mit "+ids.length+" Haken kopiert"); },manuell);
+  } else manuell();
+});
+var resetArm=0;
+document.getElementById("dtReset").addEventListener("click",function(){
+  var btn=this;
+  if(Date.now()-resetArm<4000){
+    DONE={}; saveDone(); renderDT(); render(); renderPlan(); resetArm=0; btn.textContent="Zurücksetzen"; toast("Alle Haken entfernt");
+  } else {
+    resetArm=Date.now(); btn.textContent="Wirklich? Nochmal tippen";
+    setTimeout(function(){ if(Date.now()-resetArm>=3900) btn.textContent="Zurücksetzen"; },4000);
+  }
+});
+var lastY=0;
+function openDT(){
+  if(!dt.hidden) return;
+  lastY=window.scrollY; renderDT(); dt.hidden=false; document.documentElement.style.overflow="hidden"; dt.scrollTop=0;
+  document.getElementById("dtClose").focus({preventScroll:true});
+}
+function closeDT(){
+  if(dt.hidden) return;
+  dt.hidden=true; document.documentElement.style.overflow=""; window.scrollTo(0,lastY);
+}
+function syncHash(){ if(location.hash.indexOf("#drehtag")===0) openDT(); else closeDT(); }
+window.addEventListener("hashchange",syncHash);
+document.getElementById("dtClose").addEventListener("click",function(){
+  if(location.hash.indexOf("#drehtag")===0){ try{ history.pushState(null,"",location.pathname+location.search); }catch(e){} }
+  closeDT();
+});
+document.addEventListener("keydown",function(e){ if(e.key==="Escape" && !dt.hidden) document.getElementById("dtClose").click(); });
+updateCounts();
+syncHash();
+
+/* Checklisten, nur im eigenen Browser gemerkt */
+function checklist(id,items){
+  var key="pp-"+id, saved={};
+  try{saved=JSON.parse(localStorage.getItem(key)||"{}");}catch(e){saved={};}
+  document.getElementById(id).innerHTML = items.map(function(t,i){
+    return '<li><label for="'+id+'-'+i+'"><input type="checkbox" id="'+id+'-'+i+'" data-i="'+i+'"'+(saved[i]?' checked':'')+'><span>'+esc(t)+'</span></label></li>';
+  }).join("");
+  document.getElementById(id).addEventListener("change",function(ev){
+    var i=ev.target.getAttribute("data-i"); if(i===null)return; saved[i]=ev.target.checked;
+    try{localStorage.setItem(key,JSON.stringify(saved));}catch(e){}
+  });
+}
+checklist("props",PROPS); checklist("tech",TECH);
+
+/* Director Text in Wörter teilen */
+var note=document.getElementById("note"), words=[];
+Array.prototype.forEach.call(note.querySelectorAll("p"),function(p){
+  p.innerHTML = p.textContent.split(/(\s+)/).map(function(w){return /\s+/.test(w)?w:'<span class="w">'+esc(w)+'</span>';}).join("");
+});
+words = Array.prototype.slice.call(note.querySelectorAll(".w"));
+
+var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* Roter Faden */
+var svgT=document.getElementById("thread"), path=document.getElementById("threadPath"), knot=document.getElementById("threadKnot"), main=document.getElementById("main");
+var L=0, table=[];
+function buildThread(){
+  var docH=document.documentElement.scrollHeight, vw=document.documentElement.clientWidth;
+  svgT.setAttribute("height",docH); svgT.style.height=docH+"px";
+  svgT.setAttribute("viewBox","0 0 "+vw+" "+docH);
+  var lane=Math.max(8,(vw-1200)/2-34), amp=vw>900?14:5, start=document.querySelector(".hero").offsetHeight-40;
+  var d="M "+(vw*0.62)+" "+(start-120)+" C "+(vw*0.4)+" "+(start-60)+", "+(lane+40)+" "+(start-30)+", "+lane+" "+start, y=start, k=0;
+  while(y<docH-60){ var ny=Math.min(docH-60,y+260), sx=lane+(k%2?amp:-amp); d+=" S "+sx+" "+(y+130)+", "+lane+" "+ny; y=ny; k++; }
+  path.setAttribute("d",d);
+  L=path.getTotalLength(); table=[];
+  for(var s=0;s<=L;s+=24){table.push([s,path.getPointAtLength(s).y]);}
+  table.push([L,path.getPointAtLength(L).y]);
+  path.style.strokeDasharray=L+" "+L;
+  drawThread();
+}
+function lengthAtY(y){
+  if(!table.length)return 0; if(y<=table[0][1])return 0;
+  for(var i=1;i<table.length;i++){ if(table[i][1]>=y){ var a=table[i-1],b=table[i],f=(y-a[1])/Math.max(1,(b[1]-a[1])); return a[0]+f*(b[0]-a[0]); } }
+  return L;
+}
+function drawThread(){
+  if(reduce){path.style.strokeDashoffset=0; knot.setAttribute("r",0); return;}
+  var tip=window.scrollY+window.innerHeight*0.62, len=lengthAtY(tip);
+  path.style.strokeDashoffset=Math.max(0,L-len);
+  var p=path.getPointAtLength(Math.min(L,len)); knot.setAttribute("cx",p.x); knot.setAttribute("cy",p.y);
+}
+
+/* Uhr in der Storyline */
+var CLOCKS=["23:41","23:47","23:53","23:59","00:00"];
+function setClock(prog){
+  var a=Math.min(4,Math.floor(prog*5)), within=(prog*5)-a, m;
+  var t0=[41,47,53,59,60][a], t1=[47,53,59,60,60][a];
+  var mins=Math.round(t0+(t1-t0)*Math.min(1,within)); if(mins>=60){m="00:00";}else{m="23:"+(mins<10?"0":"")+mins;}
+  document.getElementById("clock").textContent=m;
+  document.getElementById("clockAct").textContent=ACTS[a].n+" · "+ACTS[a].h;
+  document.getElementById("clockBar").style.width=(prog*100).toFixed(1)+"%";
+}
+
+/* Seitenindex */
+var links=Array.prototype.slice.call(document.querySelectorAll(".index a"));
+function markIndex(){
+  var y=window.scrollY+window.innerHeight*0.4, cur=null;
+  links.forEach(function(a){var el=document.querySelector(a.getAttribute("href")); if(el && el.getBoundingClientRect().top+window.scrollY<=y) cur=a;});
+  links.forEach(function(a){a.classList.toggle("on",a===cur);});
+}
+
+var navLinks=links.concat(Array.prototype.slice.call(document.querySelectorAll(".tlinks a:not(.dtbtn), #brandLink")));
+navLinks.forEach(function(a){ a.addEventListener("click",function(ev){
+  var h=a.getAttribute("href"); ev.preventDefault();
+  if(h==="#top"){ window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); return; }
+  var el=document.querySelector(h); if(!el)return;
+  window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-70,behavior:reduce?"auto":"smooth"});
+});});
+function onScroll(){ drawThread(); markIndex(); }
+window.addEventListener("scroll",onScroll,{passive:true});
+var rt; window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){buildThread(); if(window.ScrollTrigger)ScrollTrigger.refresh();},150);});
+window.addEventListener("load",function(){buildThread(); if(window.ScrollTrigger)ScrollTrigger.refresh();});
+if(window.ResizeObserver){ var lastH=0; new ResizeObserver(function(){ var h=document.documentElement.scrollHeight; if(Math.abs(h-lastH)>4){ lastH=h; clearTimeout(rt); rt=setTimeout(function(){ buildThread(); if(window.ScrollTrigger) ScrollTrigger.refresh(); },200);} }).observe(main); }
+buildThread(); markIndex();
+
+/* Scroll Effekte, alles ist auch ohne sie lesbar */
+if(window.gsap && window.ScrollTrigger && !reduce){
+  gsap.registerPlugin(ScrollTrigger);
+  /* Pin zuerst anlegen, damit alle Effekte darunter den Platz des Pins mitrechnen */
+  var mm=gsap.matchMedia();
+  mm.add("(min-width: 900px)",function(){
+    var strip=document.getElementById("strip");
+    var dist=function(){return Math.max(0,strip.scrollWidth-window.innerWidth);};
+    gsap.to(strip,{x:function(){return -dist();},ease:"none",scrollTrigger:{trigger:"#previs",start:"top top",end:function(){return "+="+dist();},pin:"#previs",scrub:1,invalidateOnRefresh:true,anticipatePin:1,refreshPriority:1}});
+  });
+  gsap.to("#heroBg",{yPercent:14,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+  gsap.to(".title .t2",{x:()=>Math.min(120,window.innerWidth*0.06),ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+  ScrollTrigger.create({trigger:"#note",start:"top 75%",end:"bottom 55%",scrub:true,onUpdate:function(st){
+    var k=Math.round(st.progress*words.length); for(var i=0;i<words.length;i++){words[i].classList.toggle("on",i<k);} }});
+  ScrollTrigger.create({trigger:"#acts",start:"top 60%",end:"bottom 60%",onUpdate:function(st){setClock(st.progress);}});
+  gsap.utils.toArray(".actc .img img").forEach(function(img){
+    gsap.fromTo(img,{scale:1.14},{scale:1,ease:"none",scrollTrigger:{trigger:img,start:"top bottom",end:"bottom 40%",scrub:true}});
+  });
+  gsap.utils.toArray(".mood figure").forEach(function(f,i){
+    var amt=[28,-18,36,-10][i%4];
+    gsap.fromTo(f,{y:amt},{y:-amt,ease:"none",scrollTrigger:{trigger:f,start:"top bottom",end:"bottom top",scrub:true}});
+  });
+  gsap.utils.toArray(".duo figure").forEach(function(f,i){
+    gsap.fromTo(f,{y:i?60:-20},{y:i?-40:20,ease:"none",scrollTrigger:{trigger:"#faden",start:"top bottom",end:"bottom top",scrub:true}});
+  });
+  gsap.utils.toArray("h2").forEach(function(h){
+    gsap.fromTo(h,{letterSpacing:"0.06em"},{letterSpacing:"0.005em",ease:"none",scrollTrigger:{trigger:h,start:"top 95%",end:"top 55%",scrub:true}});
+  });
+  ScrollTrigger.create({trigger:"#map",start:"top 80%",end:"bottom 30%",scrub:true,onUpdate:function(st){
+    var ph=document.getElementById("playhead"); if(ph){var xx=(st.progress*1000).toFixed(1); ph.setAttribute("x1",xx); ph.setAttribute("x2",xx);} }});
+  gsap.fromTo(".end .big em",{color:"var(--ink)"},{color:"var(--thread)",ease:"none",scrollTrigger:{trigger:".end",start:"top 80%",end:"top 40%",scrub:true}});
+  ScrollTrigger.addEventListener("refresh",buildThread);
+  ScrollTrigger.sort();
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ ScrollTrigger.refresh(); }); }
+}else{
+  words.forEach(function(w){w.classList.add("on");});
+  setClock(1);
+}
+})();
+</script>
+
+</html>
